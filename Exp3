@@ -1,0 +1,51 @@
+# Knowledge Base: Representing family relationships
+knowledge_base = {
+    "parent": {
+        ("John", "Alice"),
+        ("John", "Bob"),
+        ("Mary", "Alice"),
+        ("Mary", "Bob"),
+        ("Alice", "Charlie"),
+        ("Alice", "Daisy"),
+        ("Bob", "Eve")
+    },
+    "married": {
+        ("John", "Mary"),
+        ("Alice", "Ethan")
+    }
+}
+
+# Function to find children of a person
+def get_children(person):
+    return [child for parent, child in knowledge_base["parent"] if parent == person]
+
+# Function to find parents of a person
+def get_parents(person):
+    return [parent for parent, child in knowledge_base["parent"] if child == person]
+
+# Function to find siblings of a person
+def get_siblings(person):
+    parents = get_parents(person)
+    siblings = set()
+    for parent in parents:
+        siblings.update(get_children(parent))
+    siblings.discard(person)  # Remove the person from their own sibling list
+    return list(siblings)
+
+# Function to find spouse of a person
+def get_spouse(person):
+    for p1, p2 in knowledge_base["married"]:
+        if p1 == person:
+            return p2
+        if p2 == person:
+            return p1
+    return None
+
+# Example Usage
+if __name__ == "__main__":
+    person = "Alice"
+
+    print(f"Children of {person}: {get_children(person)}")
+    print(f"Parents of {person}: {get_parents(person)}")
+    print(f"Siblings of {person}: {get_siblings(person)}")
+    print(f"Spouse of {person}: {get_spouse(person)}")
