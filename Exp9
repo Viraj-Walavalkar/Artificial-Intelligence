@@ -1,0 +1,27 @@
+responses = {
+    "hello": "Hi there! Welcome to our customer care service. How can I assist you today?",
+    "order": "Could you please provide your order ID so I can help you track or modify your order?",
+    "return": "I'm sorry to hear that you need to return a product. Could you tell me the order ID and the reason for the return?",
+    "complaint": "We're here to help! Could you share the details of your complaint so we can resolve it quickly?",
+    "product": "What product information are you looking for? Feel free to ask about availability, specifications, or pricing.",
+    "bye": "Thank you for contacting customer care. Have a great day!"
+}
+
+def chatbot():
+    print("Chatbot: Hello! I'm your customer care assistant. Type 'bye' to exit.")
+    
+    while True:
+        user_input = input("You: ").strip().lower()
+        
+        if user_input == "bye":
+            print("Chatbot:", responses["bye"])
+            break
+        
+        response = responses.get(user_input, None)
+        if response:
+            print("Chatbot:", response)
+        else:
+            print("Chatbot: I'm sorry, I didn't catch that. Can you rephrase or ask about 'order', 'return', 'complaint', or 'product'?")
+
+if __name__ == "__main__":
+    chatbot()
