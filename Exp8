@@ -1,0 +1,33 @@
+def backward_chaining(rules, facts, goal):
+    if goal in facts:
+        print(f"Goal '{goal}' is already a fact.")
+        return True
+
+    for conditions, conclusion in rules:
+        if conclusion == goal:  
+            print(f"Trying to satisfy the conditions {conditions} to reach '{goal}'...")
+            
+            if all(backward_chaining(rules, facts, condition) for condition in conditions):
+                print(f"All conditions {conditions} satisfied for '{goal}'.")
+                return True
+            else:
+                print(f"Cannot satisfy conditions {conditions} for '{goal}'.")
+
+    print(f"Goal '{goal}' cannot be reached with the current facts and rules.")
+    return False
+
+rules = [
+    (["A", "B"], "C"), 
+    (["C", "D"], "E"),  
+    (["E"], "F"),       
+    (["A"], "D"),      
+]
+
+facts = {"A", "B"}  
+
+goal = "F"  
+
+if backward_chaining(rules, facts, goal):
+    print(f"Goal '{goal}' is reached!")
+else:
+    print(f"Goal '{goal}' cannot be reached.")
